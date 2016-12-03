@@ -19,7 +19,10 @@ module.exports = {
       },
       {
         test: /\.njk$/,
-        loader: "nunjucks-loader"
+        loader: "nunjucks-loader",
+        query: {
+          config: path.join(__dirname, "nunjucks.config.js")
+        }
       }
     ]
   },
