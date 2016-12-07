@@ -1,2 +1,18 @@
+# Dist #
 dist
+
+# Node Files #
 node_modules
+npm-debug.log
+
+# Logs
+logs
+*.log
+
+# IDE #
+.idea/copyright/
+.idea/workspace.xml
+
+# OS generated files #
+.DS_Store
+Thumbs.db
