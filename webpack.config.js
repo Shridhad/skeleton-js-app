@@ -1,7 +1,13 @@
-const path = require("path");
+const path = require("path"),
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    webpack = require('webpack');
+
 // noinspection JSUnresolvedVariable
 module.exports = {
-  entry: "./src/js/main.js",
+  entry: {
+    app: "./src/js/main.js",
+    vendor: ["jquery", "backbone", "backbone.marionette", "nunjucks", "nunjucks-date-filter"]
+  },
   output: {
     path: path.join(__dirname, "dist"),
     filename: "js/main.js"
@@ -26,6 +32,13 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
+    new webpack.optimize.DedupePlugin(),
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
+    })
+  ],
   devtool: "source-map",
   devServer: {
     inline: true
