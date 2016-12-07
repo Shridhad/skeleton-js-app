@@ -1,6 +1,9 @@
 const path = require("path"),
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
     HtmlWebpackPlugin = require('html-webpack-plugin'),
     webpack = require('webpack');
+
+let extractCSS = new ExtractTextPlugin('css/styles.css');
 
 // noinspection JSUnresolvedVariable
 module.exports = {
@@ -21,7 +24,8 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: "style-loader!css-loader!less-loader?strictMath&noIeCompat"
+        // loader: "style-loader!css-loader!less-loader?strictMath&noIeCompat"
+        loader: extractCSS.extract(['css', 'less'])
       },
       {
         test: /\.njk$/,
@@ -33,7 +37,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js"),
+    new webpack.optimize.CommonsChunkPlugin("vendor", "js/vendor.bundle.js"),
+    extractCSS,
     new webpack.optimize.DedupePlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html'
