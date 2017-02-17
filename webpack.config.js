@@ -1,51 +1,28 @@
-const path = require("path"),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin'),
-    webpack = require('webpack');
+const yargs = require("yargs");
+const _ = require("underscore");
 
-let extractCSS = new ExtractTextPlugin('css/styles.css');
+const args = _.without(_.keys(yargs.argv), "_", "$0");
+const ENV = args.length > 0 ? args[0] : process.env.NODE_ENV || "Not Specified";
 
-// noinspection JSUnresolvedVariable
-module.exports = {
-  entry: {
-    app: "./src/js/main.js",
-    vendor: ["jquery", "backbone", "backbone.marionette", "nunjucks", "nunjucks-date-filter"]
-  },
-  output: {
-    path: path.join(__dirname, "dist"),
-    filename: "js/main.js"
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        loader: "babel-loader?presets=es2015!xola-style-loader!xola-template-loader"
-      },
-      {
-        test: /\.less$/,
-        // loader: "style-loader!css-loader!less-loader?strictMath&noIeCompat"
-        loader: extractCSS.extract(['css', 'less'])
-      },
-      {
-        test: /\.njk$/,
-        loader: "nunjucks-loader",
-        query: {
-          config: path.join(__dirname, "nunjucks.config.js")
-        }
-      }
-    ]
-  },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin("vendor", "js/vendor.bundle.js"),
-    extractCSS,
-    new webpack.optimize.DedupePlugin(),
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    })
-  ],
-  devtool: "source-map",
-  devServer: {
-    inline: true
-  }
-};
+console.log("ENV ", ENV);
+switch (ENV) {
+  case "prod":
+  case "production":
+    console.log("building for production");
+    module.exports = require("./webpack/webpack.prod");
+    break;
+  case "stage":
+  case "staging":
+    console.log("building for staging");
+    module.exports = require("./webpack/webpack.staging");
+    break;
+  case "sandbox":
+    console.log("building for sandbox");
+    module.exports = require("./webpack/webpack.sandbox");
+    break;
+  case "dev":
+  case "development":
+  default:
+    console.log("building for development");
+    module.exports = require("./webpack/webpack.dev");
+}
