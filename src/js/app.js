@@ -1,6 +1,6 @@
 import Backbone from "backbone";
 import Marionette from "backbone.marionette";
-import AppRouter from "./controller/app_router";
+import { AppRouter } from "./controller/app_router";
 
 export default Marionette.Application.extend({
   region: "#app",

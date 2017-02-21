@@ -10,11 +10,6 @@ switch (ENV) {
     console.log("building for production");
     module.exports = require("./webpack/webpack.prod");
     break;
-  case "stage":
-  case "staging":
-    console.log("building for staging");
-    module.exports = require("./webpack/webpack.staging");
-    break;
   case "sandbox":
     console.log("building for sandbox");
     module.exports = require("./webpack/webpack.sandbox");

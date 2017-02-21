@@ -1,7 +1,7 @@
 import Marionette from "backbone.marionette";
-import AppController from "./app_controller";
+import { AppController } from "./app_controller";
 
-export default Marionette.AppRouter.extend({
+export const AppRouter = Marionette.AppRouter.extend({
   controller: AppController,
 
   appRoutes: {

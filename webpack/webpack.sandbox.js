@@ -5,9 +5,18 @@ const commonConfig = require("./webpack.common.js");
 
 // noinspection JSUnresolvedVariable
 module.exports = webpackMerge(commonConfig, {
+  resolve: {
+    alias: {
+      config: helper.root("config/sandbox.js")
+    },
+  },
   output: {
     path: helper.root("dist"),
     filename: "js/main.js?h=[chunkhash]"
+  },
+  output: {
+    path: helper.root("dist"),
+    filename: "js/main.js"
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),

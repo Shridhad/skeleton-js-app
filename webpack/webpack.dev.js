@@ -4,6 +4,11 @@ const commonConfig = require("./webpack.common.js");
 
 // noinspection JSUnresolvedVariable
 module.exports = webpackMerge(commonConfig, {
+  resolve: {
+    alias: {
+      config: helper.root("config/dev.js")
+    },
+  },
   devtool: "source-map",
   devServer: {
     inline: true,

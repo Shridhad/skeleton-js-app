@@ -1,6 +1,6 @@
 import Marionette from "backbone.marionette";
-import AppSummaryView from "./app_summary";
+import { AppSummaryView } from "./app_summary";
 
-export default Marionette.CollectionView.extend({
+export const BrowseAppsView =  Marionette.CollectionView.extend({
   childView: AppSummaryView
 });
