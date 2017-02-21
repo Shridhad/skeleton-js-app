@@ -10,6 +10,10 @@ module.exports = webpackMerge(commonConfig, {
       config: helper.root("config/prod.js")
     },
   },
+  output: {
+    path: helper.root("dist"),
+    filename: "js/main.js?h=[chunkhash]"
+  },
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({})
