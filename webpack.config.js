@@ -1,8 +1,7 @@
 const yargs = require("yargs");
-const _ = require("underscore");
 
-const args = _.without(_.keys(yargs.argv), "_", "$0");
-const ENV = args.length > 0 ? args[0] : process.env.NODE_ENV || "Not Specified";
+const env = yargs.argv.env;
+const ENV = env ? env : process.env.NODE_ENV || "Not Specified";
 
 console.log("ENV ", ENV);
 switch (ENV) {

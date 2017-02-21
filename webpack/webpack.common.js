@@ -8,6 +8,9 @@ const extractCSS = new ExtractTextPlugin("css/styles.css?h=[contenthash]");
 // noinspection JSUnresolvedVariable
 module.exports = {
   entry: "./src/js/main.js",
+  resolve: {
+    extensions: [".js", ".less"]
+  },
   output: {
     path: helper.root("dist"),
     filename: "js/main.js"
@@ -21,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: extractCSS.extract(["css", "less"])
+        loader: extractCSS.extract(["css-loader", "less-loader"])
       },
       {
         test: /\.njk$/,
